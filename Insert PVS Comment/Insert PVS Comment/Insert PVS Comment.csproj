@@ -55,9 +55,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Insert_CommentPackage.cs" />
-    <Compile Include="Insert_Comment_Individual.cs" />
-    <Compile Include="Insert_Comment_Open_Source.cs" />
-    <Compile Include="Insert_Comment_Student.cs" />
+    <Compile Include="Insert_Comment_Command.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

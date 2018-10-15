@@ -52,25 +52,11 @@
               <CommandFlag>DefaultInvisible</CommandFlag>
               <CommandFlag>DynamicVisibility</CommandFlag>
           If you do not want an image next to your command, remove the Icon node /> -->
-      <Button guid="guidInsert_CommentPackageCmdSet" id="cmdidInsert_Comment_Individual" priority="0x0100" type="Button">
+      <Button guid="guidInsert_CommentPackageCmdSet" id="cmdidInsert_Comment_Command" priority="0x0100" type="Button">
         <Parent guid="guidInsert_CommentPackageCmdSet" id="MyMenuGroup" />
         <Icon guid="guidImages" id="bmpPic1" />
         <Strings>
-          <ButtonText>Insert PVS Comment (Individual)</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidInsert_CommentPackageCmdSet" id="cmdidInsert_Comment_Open_Source" priority="0x0100" type="Button">
-        <Parent guid="guidInsert_CommentPackageCmdSet" id="MyMenuGroup" />
-        <Icon guid="guidImages" id="bmpPic1" />
-        <Strings>
-          <ButtonText>Insert PVS Comment (Open Source)</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidInsert_CommentPackageCmdSet" id="cmdidInsert_Comment_Student" priority="0x0100" type="Button">
-        <Parent guid="guidInsert_CommentPackageCmdSet" id="MyMenuGroup" />
-        <Icon guid="guidImages" id="bmpPic1" />
-        <Strings>
-          <ButtonText>Insert PVS Comment (Student)</ButtonText>
+          <ButtonText>Insert PVS Comment</ButtonText>
         </Strings>
       </Button>
     </Buttons>
@@ -93,9 +79,7 @@
     <!-- This is the guid used to group the menu commands together -->
     <GuidSymbol name="guidInsert_CommentPackageCmdSet" value="{6c6b1411-3fdb-454b-908c-f2b82cf11f94}">
       <IDSymbol name="MyMenuGroup" value="0x1020" />
-      <IDSymbol value="4131" name="cmdidInsert_Comment_Individual" />
-      <IDSymbol value="4132" name="cmdidInsert_Comment_Student" />
-      <IDSymbol value="4133" name="cmdidInsert_Comment_Open_Source" />
+      <IDSymbol value="256" name="cmdidInsert_Comment_Command" />
     </GuidSymbol>
 
     <GuidSymbol name="guidImages" value="{eea90dd0-4917-4a6e-ab05-ba4348e01276}">

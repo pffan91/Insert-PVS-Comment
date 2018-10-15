@@ -13,32 +13,32 @@ namespace Insert_PVS_Comment
     /// <summary>
     /// Command handler
     /// </summary>
-    internal sealed class Insert_Comment_Open_Source
+    internal sealed class Insert_Comment_Command
     {
         /// <summary>
         /// Command ID.
         /// </summary>
-        public const int CommandId = 4132;
+        public const int CommandId = 256;
 
         /// <summary>
         /// Command menu group (command set GUID).
         /// </summary>
         public static readonly Guid CommandSet = new Guid("6c6b1411-3fdb-454b-908c-f2b82cf11f94");
 
-        private static DTE _dte;
-
         /// <summary>
         /// VS Package that provides this command, not null.
         /// </summary>
         private readonly AsyncPackage package;
 
+        private static DTE _dte;
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="Insert_Comment_Open_Source"/> class.
+        /// Initializes a new instance of the <see cref="Insert_Comment_Command"/> class.
         /// Adds our command handlers for menu (commands must exist in the command table file)
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
         /// <param name="commandService">Command service to add command to, not null.</param>
-        private Insert_Comment_Open_Source(AsyncPackage package, OleMenuCommandService commandService)
+        private Insert_Comment_Command(AsyncPackage package, OleMenuCommandService commandService)
         {
             this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
@@ -51,7 +51,7 @@ namespace Insert_PVS_Comment
         /// <summary>
         /// Gets the instance of the command.
         /// </summary>
-        public static Insert_Comment_Open_Source Instance
+        public static Insert_Comment_Command Instance
         {
             get;
             private set;
@@ -74,14 +74,14 @@ namespace Insert_PVS_Comment
         /// <param name="package">Owner package, not null.</param>
         public static async Task InitializeAsync(AsyncPackage package)
         {
-            // Switch to the main thread - the call to AddCommand in Insert_Comment_Open_Source's constructor requires
+            // Switch to the main thread - the call to AddCommand in Insert_Comment_Command's constructor requires
             // the UI thread.
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
 
             _dte = await package.GetServiceAsync(typeof(DTE)) as DTE;
 
             OleMenuCommandService commandService = await package.GetServiceAsync((typeof(IMenuCommandService))) as OleMenuCommandService;
-            Instance = new Insert_Comment_Open_Source(package, commandService);
+            Instance = new Insert_Comment_Command(package, commandService);
         }
 
         /// <summary>
@@ -103,8 +103,28 @@ namespace Insert_PVS_Comment
             var textDocument = activeDocument.Object() as TextDocument;
             if (textDocument == null) return;
 
+            Insert_CommentPackage package = this.package as Insert_CommentPackage;
+            if (package == null) return;
+
             var startEditPoint = textDocument.StartPoint.CreateEditPoint();
-            startEditPoint.Insert("// This is an open source non-commercial project. Dear PVS-Studio, please check it." + Environment.NewLine + "// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com" + Environment.NewLine);
+
+            switch (package.selectedLicenseType) {
+                case LicenseType.Individual:
+                    {
+                        startEditPoint.Insert("// This is an independent project of an individual developer. Dear PVS-Studio, please check it." + Environment.NewLine + "// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com" + Environment.NewLine);
+                        break;
+                    }
+                case LicenseType.OpenSource:
+                    {
+                        startEditPoint.Insert("// This is an open source non-commercial project. Dear PVS-Studio, please check it." + Environment.NewLine + "// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com" + Environment.NewLine);
+                        break;
+                    }
+                case LicenseType.Student:
+                    {
+                        startEditPoint.Insert("// This is a personal academic project. Dear PVS-Studio, please check it." + Environment.NewLine + "// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com" + Environment.NewLine);
+                        break;
+                    }
+            }
         }
     }
 }

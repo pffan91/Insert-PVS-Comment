@@ -12,6 +12,9 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.Win32;
 using Task = System.Threading.Tasks.Task;
+using System.ComponentModel;
+using Microsoft.VisualStudio.Settings;
+using Microsoft.VisualStudio.Shell.Settings;
 
 namespace Insert_PVS_Comment
 {
@@ -36,6 +39,7 @@ namespace Insert_PVS_Comment
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)] // Info on this package for Help/About
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(Insert_CommentPackage.PackageGuidString)]
+    [ProvideOptionPage(typeof(OptionPageGrid), "Insert PVS Comment", "General", 0, 0, true)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
     public sealed class Insert_CommentPackage : AsyncPackage
     {
@@ -43,6 +47,15 @@ namespace Insert_PVS_Comment
         /// Insert_CommentPackage GUID string.
         /// </summary>
         public const string PackageGuidString = "b91e293b-3ca5-4d5e-b639-1ac2c171447c";
+
+        public LicenseType selectedLicenseType
+        {
+            get
+            {
+                var dialogOptions = (OptionPageGrid)GetDialogPage(typeof(OptionPageGrid));
+                return dialogOptions.selectedLicenseType;
+            }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Insert_CommentPackage"/> class.
@@ -69,11 +82,27 @@ namespace Insert_PVS_Comment
             // When initialized asynchronously, the current thread may be a background thread at this point.
             // Do any initialization that requires the UI thread after switching to the UI thread.
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
-            await Insert_Comment_Individual.InitializeAsync(this);
-            await Insert_Comment_Open_Source.InitializeAsync(this);
-            await Insert_Comment_Student.InitializeAsync(this);
+            await Insert_Comment_Command.InitializeAsync(this);
         }
 
         #endregion
+    }
+
+    public class OptionPageGrid : DialogPage
+    {
+        [Category("General")]
+        [DisplayName("License Type")]
+        [Description("Select License Type")]
+        [DefaultValue(LicenseType.Individual)]
+        [TypeConverter(typeof(EnumConverter))]
+        public LicenseType selectedLicenseType { get; set; } = LicenseType.Individual;
+
+    }
+
+    public enum LicenseType
+    {
+        Individual,
+        OpenSource,
+        Student
     }
 }
