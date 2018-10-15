@@ -18,7 +18,7 @@ namespace Insert_PVS_Comment
         /// <summary>
         /// Command ID.
         /// </summary>
-        public const int CommandId = 4129;
+        public const int CommandId = 4132;
 
         /// <summary>
         /// Command menu group (command set GUID).

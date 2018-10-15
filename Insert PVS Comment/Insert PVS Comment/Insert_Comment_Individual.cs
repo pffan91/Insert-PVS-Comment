@@ -3,29 +3,29 @@ using System.ComponentModel.Design;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
-using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Task = System.Threading.Tasks.Task;
+using EnvDTE;
 
 namespace Insert_PVS_Comment
 {
     /// <summary>
     /// Command handler
     /// </summary>
-    internal sealed class Insert_Comment
+    internal sealed class Insert_Comment_Individual
     {
         /// <summary>
         /// Command ID.
         /// </summary>
-        public const int CommandId = 0x0100;
-
-        private static DTE _dte;
+        public const int CommandId = 4131;
 
         /// <summary>
         /// Command menu group (command set GUID).
         /// </summary>
         public static readonly Guid CommandSet = new Guid("6c6b1411-3fdb-454b-908c-f2b82cf11f94");
+
+        private static DTE _dte;
 
         /// <summary>
         /// VS Package that provides this command, not null.
@@ -33,12 +33,12 @@ namespace Insert_PVS_Comment
         private readonly AsyncPackage package;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Insert_Comment"/> class.
+        /// Initializes a new instance of the <see cref="Insert_Comment_Individual"/> class.
         /// Adds our command handlers for menu (commands must exist in the command table file)
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
         /// <param name="commandService">Command service to add command to, not null.</param>
-        private Insert_Comment(AsyncPackage package, OleMenuCommandService commandService)
+        private Insert_Comment_Individual(AsyncPackage package, OleMenuCommandService commandService)
         {
             this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
@@ -51,7 +51,7 @@ namespace Insert_PVS_Comment
         /// <summary>
         /// Gets the instance of the command.
         /// </summary>
-        public static Insert_Comment Instance
+        public static Insert_Comment_Individual Instance
         {
             get;
             private set;
@@ -74,14 +74,14 @@ namespace Insert_PVS_Comment
         /// <param name="package">Owner package, not null.</param>
         public static async Task InitializeAsync(AsyncPackage package)
         {
-            // Switch to the main thread - the call to AddCommand in Insert_Comment's constructor requires
+            // Switch to the main thread - the call to AddCommand in Insert_Comment_Individual's constructor requires
             // the UI thread.
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
 
             _dte = await package.GetServiceAsync(typeof(DTE)) as DTE;
 
             OleMenuCommandService commandService = await package.GetServiceAsync((typeof(IMenuCommandService))) as OleMenuCommandService;
-            Instance = new Insert_Comment(package, commandService);
+            Instance = new Insert_Comment_Individual(package, commandService);
         }
 
         /// <summary>

@@ -54,8 +54,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Insert_Comment.cs" />
     <Compile Include="Insert_CommentPackage.cs" />
+    <Compile Include="Insert_Comment_Individual.cs" />
     <Compile Include="Insert_Comment_Open_Source.cs" />
     <Compile Include="Insert_Comment_Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,8 +72,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Resources\Insert_Comment_Open_Source.png" />
-    <Content Include="Resources\Insert_Comment_Student.png" />
     <VSCTCompile Include="Insert_CommentPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
       <SubType>Designer</SubType>

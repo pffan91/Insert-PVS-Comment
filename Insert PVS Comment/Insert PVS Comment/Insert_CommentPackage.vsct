@@ -52,7 +52,7 @@
               <CommandFlag>DefaultInvisible</CommandFlag>
               <CommandFlag>DynamicVisibility</CommandFlag>
           If you do not want an image next to your command, remove the Icon node /> -->
-      <Button guid="guidInsert_CommentPackageCmdSet" id="Insert_CommentId" priority="0x0100" type="Button">
+      <Button guid="guidInsert_CommentPackageCmdSet" id="cmdidInsert_Comment_Individual" priority="0x0100" type="Button">
         <Parent guid="guidInsert_CommentPackageCmdSet" id="MyMenuGroup" />
         <Icon guid="guidImages" id="bmpPic1" />
         <Strings>
@@ -61,14 +61,14 @@
       </Button>
       <Button guid="guidInsert_CommentPackageCmdSet" id="cmdidInsert_Comment_Open_Source" priority="0x0100" type="Button">
         <Parent guid="guidInsert_CommentPackageCmdSet" id="MyMenuGroup" />
-        <Icon guid="guidImages1" id="bmpPic1" />
+        <Icon guid="guidImages" id="bmpPic1" />
         <Strings>
           <ButtonText>Insert PVS Comment (Open Source)</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidInsert_CommentPackageCmdSet" id="cmdidInsert_Comment_Student" priority="0x0100" type="Button">
         <Parent guid="guidInsert_CommentPackageCmdSet" id="MyMenuGroup" />
-        <Icon guid="guidImages2" id="bmpPic1" />
+        <Icon guid="guidImages" id="bmpPic1" />
         <Strings>
           <ButtonText>Insert PVS Comment (Student)</ButtonText>
         </Strings>
@@ -83,8 +83,6 @@
             inside a button definition. An important aspect of this declaration is that the element id
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
       <Bitmap guid="guidImages" href="Resources\Insert_Comment.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
-      <Bitmap guid="guidImages1" href="Resources\Insert_Comment.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
-      <Bitmap guid="guidImages2" href="Resources\Insert_Comment.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
     </Bitmaps>
   </Commands>
 
@@ -95,30 +93,12 @@
     <!-- This is the guid used to group the menu commands together -->
     <GuidSymbol name="guidInsert_CommentPackageCmdSet" value="{6c6b1411-3fdb-454b-908c-f2b82cf11f94}">
       <IDSymbol name="MyMenuGroup" value="0x1020" />
-      <IDSymbol name="Insert_CommentId" value="0x0100" />
-      <IDSymbol value="4129" name="cmdidInsert_Comment_Open_Source" />
-      <IDSymbol value="4130" name="cmdidInsert_Comment_Student" />
+      <IDSymbol value="4131" name="cmdidInsert_Comment_Individual" />
+      <IDSymbol value="4132" name="cmdidInsert_Comment_Student" />
+      <IDSymbol value="4133" name="cmdidInsert_Comment_Open_Source" />
     </GuidSymbol>
 
     <GuidSymbol name="guidImages" value="{eea90dd0-4917-4a6e-ab05-ba4348e01276}">
-      <IDSymbol name="bmpPic1" value="1" />
-      <IDSymbol name="bmpPic2" value="2" />
-      <IDSymbol name="bmpPicSearch" value="3" />
-      <IDSymbol name="bmpPicX" value="4" />
-      <IDSymbol name="bmpPicArrows" value="5" />
-      <IDSymbol name="bmpPicStrikethrough" value="6" />
-    </GuidSymbol>
-  
-    <GuidSymbol value="{4bb1ffb9-b8a0-4550-8b65-aef690765b1d}" name="guidImages1">
-      <IDSymbol name="bmpPic1" value="1" />
-      <IDSymbol name="bmpPic2" value="2" />
-      <IDSymbol name="bmpPicSearch" value="3" />
-      <IDSymbol name="bmpPicX" value="4" />
-      <IDSymbol name="bmpPicArrows" value="5" />
-      <IDSymbol name="bmpPicStrikethrough" value="6" />
-    </GuidSymbol>
-  
-    <GuidSymbol value="{3889b44b-67db-4847-8238-29b823a237b1}" name="guidImages2">
       <IDSymbol name="bmpPic1" value="1" />
       <IDSymbol name="bmpPic2" value="2" />
       <IDSymbol name="bmpPicSearch" value="3" />
