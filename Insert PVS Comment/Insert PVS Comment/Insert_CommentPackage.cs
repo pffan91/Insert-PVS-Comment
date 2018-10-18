@@ -1,4 +1,7 @@
-﻿using System;
+﻿// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
+using System;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -41,6 +44,7 @@ namespace Insert_PVS_Comment
     [Guid(Insert_CommentPackage.PackageGuidString)]
     [ProvideOptionPage(typeof(OptionPageGrid), "Insert PVS Comment", "General", 0, 0, true)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
+    [ProvideToolWindow(typeof(BatchPVSComment))]
     public sealed class Insert_CommentPackage : AsyncPackage
     {
         /// <summary>
@@ -83,6 +87,7 @@ namespace Insert_PVS_Comment
             // Do any initialization that requires the UI thread after switching to the UI thread.
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             await Insert_Comment_Command.InitializeAsync(this);
+            await BatchPVSCommentCommand.InitializeAsync(this);
         }
 
         #endregion

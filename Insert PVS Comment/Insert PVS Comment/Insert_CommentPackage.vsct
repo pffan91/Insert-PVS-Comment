@@ -59,8 +59,15 @@
           <ButtonText>Insert PVS Comment</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidInsert_CommentPackageCmdSet" id="cmdidBatchPVSCommentCommand" priority="0x0100" type="Button">
+        <Parent guid="guidInsert_CommentPackageCmdSet" id="MyMenuGroup" />
+        <Icon guid="guidImages" id="bmpPic2" />
+        <Strings>
+          <ButtonText>Batch PVS Comment</ButtonText>
+        </Strings>
+      </Button>
     </Buttons>
-
+    
     <!--The bitmaps section is used to define the bitmaps that are used for the commands.-->
     <Bitmaps>
       <!--  The bitmap id is defined in a way that is a little bit different from the others:
@@ -68,9 +75,14 @@
             bitmap strip containing the bitmaps and then there are the numeric ids of the elements used
             inside a button definition. An important aspect of this declaration is that the element id
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
-      <Bitmap guid="guidImages" href="Resources\Insert_Comment.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
+      <Bitmap guid="guidImages" href="Resources\Insert_Comment.png" usedList="bmpPic1, bmpPic2" />
     </Bitmaps>
   </Commands>
+
+  <KeyBindings>
+    <KeyBinding guid="guidInsert_CommentPackageCmdSet" id="cmdidInsert_Comment_Command"
+        key1="C" mod1="SHIFT" editor="guidVSStd97" />
+  </KeyBindings>
 
   <Symbols>
     <!-- This is the package guid. -->
@@ -80,15 +92,12 @@
     <GuidSymbol name="guidInsert_CommentPackageCmdSet" value="{6c6b1411-3fdb-454b-908c-f2b82cf11f94}">
       <IDSymbol name="MyMenuGroup" value="0x1020" />
       <IDSymbol value="256" name="cmdidInsert_Comment_Command" />
+      <IDSymbol value="4129" name="cmdidBatchPVSCommentCommand" />
     </GuidSymbol>
 
     <GuidSymbol name="guidImages" value="{eea90dd0-4917-4a6e-ab05-ba4348e01276}">
       <IDSymbol name="bmpPic1" value="1" />
       <IDSymbol name="bmpPic2" value="2" />
-      <IDSymbol name="bmpPicSearch" value="3" />
-      <IDSymbol name="bmpPicX" value="4" />
-      <IDSymbol name="bmpPicArrows" value="5" />
-      <IDSymbol name="bmpPicStrikethrough" value="6" />
     </GuidSymbol>
   </Symbols>
 </CommandTable>

@@ -1,12 +1,13 @@
-﻿using System;
+﻿// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
+using System;
 using System.ComponentModel.Design;
-using System.Globalization;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 using Task = System.Threading.Tasks.Task;
 using EnvDTE;
+using System.IO;
 
 namespace Insert_PVS_Comment
 {
@@ -28,9 +29,9 @@ namespace Insert_PVS_Comment
         /// <summary>
         /// VS Package that provides this command, not null.
         /// </summary>
-        private readonly AsyncPackage package;
+        public readonly AsyncPackage package;
 
-        private static DTE _dte;
+        public static DTE _dte;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Insert_Comment_Command"/> class.
@@ -95,35 +96,55 @@ namespace Insert_PVS_Comment
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
+            Insert_CommentPackage package = this.package as Insert_CommentPackage;
+            if (package == null) return;
+
+
+            switch (package.selectedLicenseType) {
+                case LicenseType.Individual:
+                    {
+                        WriteComment(Constants.individualComment);
+                        break;
+                    }
+                case LicenseType.OpenSource:
+                    {
+                        WriteComment(Constants.openSourceComment);
+                        break;
+                    }
+                case LicenseType.Student:
+                    {
+                        WriteComment(Constants.studentComment);
+                        break;
+                    }
+            }
+        }
+
+        private void WriteComment(string comment)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (_dte == null) return;
 
             var activeDocument = _dte.ActiveDocument;
             if (activeDocument == null) return;
 
-            var textDocument = activeDocument.Object() as TextDocument;
-            if (textDocument == null) return;
+            var path = (string)activeDocument.ProjectItem.Properties.Item("FullPath").Value;
 
-            Insert_CommentPackage package = this.package as Insert_CommentPackage;
-            if (package == null) return;
+            string ext = Path.GetExtension(path);
+            ext = ext.ToLower();
 
-            var startEditPoint = textDocument.StartPoint.CreateEditPoint();
+            if (ext == ".cpp" || ext == ".c" || ext == ".cc" || ext == ".cxx" || ext == ".c++" || ext == ".h" || ext == ".hh" || ext == ".hxx" || ext == ".hpp" || ext == "h++" || ext == ".cs")
+            {
+                string currentContent = String.Empty;
+                if (File.Exists(path))
+                {
+                    currentContent = File.ReadAllText(path);
 
-            switch (package.selectedLicenseType) {
-                case LicenseType.Individual:
+                    if (!currentContent.Contains(comment))
                     {
-                        startEditPoint.Insert("// This is an independent project of an individual developer. Dear PVS-Studio, please check it." + Environment.NewLine + "// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com" + Environment.NewLine);
-                        break;
+                        File.WriteAllText(path, comment + currentContent);
                     }
-                case LicenseType.OpenSource:
-                    {
-                        startEditPoint.Insert("// This is an open source non-commercial project. Dear PVS-Studio, please check it." + Environment.NewLine + "// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com" + Environment.NewLine);
-                        break;
-                    }
-                case LicenseType.Student:
-                    {
-                        startEditPoint.Insert("// This is a personal academic project. Dear PVS-Studio, please check it." + Environment.NewLine + "// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com" + Environment.NewLine);
-                        break;
-                    }
+                }
             }
         }
     }
