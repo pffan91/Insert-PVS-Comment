@@ -6,6 +6,7 @@ namespace Insert_PVS_Comment
 {
     using EnvDTE;
     using Microsoft.VisualStudio.Shell;
+    using Microsoft.VisualStudio;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -13,6 +14,7 @@ namespace Insert_PVS_Comment
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
+    using System.Diagnostics;
 
     /// <summary>
     /// Interaction logic for BatchPVSCommentControl.
@@ -109,6 +111,11 @@ namespace Insert_PVS_Comment
                 }
                 else
                 {
+                    if (item.Kind == VSConstants.ItemTypeGuid.PhysicalFolder_string || item.Kind == VSConstants.ItemTypeGuid.VirtualFolder_string) // empty folder
+                    {
+                        continue;
+                    }
+
                     Node newItem = new Node() { Text = item.Name + " " + (string)item.Properties.Item("FullPath").Value, Path = (string)item.Properties.Item("FullPath").Value };
                     treeViewItem.Children.Add(newItem);
                     iterateOverItems(item.ProjectItems, treeViewItem);
