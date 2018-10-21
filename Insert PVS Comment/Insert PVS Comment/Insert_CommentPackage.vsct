@@ -56,14 +56,14 @@
         <Parent guid="guidInsert_CommentPackageCmdSet" id="MyMenuGroup" />
         <Icon guid="guidImages" id="bmpPic1" />
         <Strings>
-          <ButtonText>Insert PVS Comment</ButtonText>
+          <ButtonText>Insert PVS-Studio Comment</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidInsert_CommentPackageCmdSet" id="cmdidBatchPVSCommentCommand" priority="0x0100" type="Button">
         <Parent guid="guidInsert_CommentPackageCmdSet" id="MyMenuGroup" />
         <Icon guid="guidImages" id="bmpPic2" />
         <Strings>
-          <ButtonText>Batch PVS Comment</ButtonText>
+          <ButtonText>Batch PVS-Studio Comment</ButtonText>
         </Strings>
       </Button>
     </Buttons>

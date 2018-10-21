@@ -42,7 +42,7 @@ namespace Insert_PVS_Comment
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)] // Info on this package for Help/About
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(Insert_CommentPackage.PackageGuidString)]
-    [ProvideOptionPage(typeof(OptionPageGrid), "Insert PVS Comment", "General", 0, 0, true)]
+    [ProvideOptionPage(typeof(OptionPageGrid), "Insert PVS-Studio Comment", "General", 0, 0, true)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
     [ProvideToolWindow(typeof(BatchPVSComment))]
     public sealed class Insert_CommentPackage : AsyncPackage
