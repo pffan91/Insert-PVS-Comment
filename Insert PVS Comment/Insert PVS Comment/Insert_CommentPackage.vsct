@@ -79,11 +79,6 @@
     </Bitmaps>
   </Commands>
 
-  <KeyBindings>
-    <KeyBinding guid="guidInsert_CommentPackageCmdSet" id="cmdidInsert_Comment_Command"
-        key1="C" mod1="SHIFT" editor="guidVSStd97" />
-  </KeyBindings>
-
   <Symbols>
     <!-- This is the package guid. -->
     <GuidSymbol name="guidInsert_CommentPackage" value="{b91e293b-3ca5-4d5e-b639-1ac2c171447c}" />

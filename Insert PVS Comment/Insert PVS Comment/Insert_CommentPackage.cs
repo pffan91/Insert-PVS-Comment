@@ -39,7 +39,7 @@ namespace Insert_PVS_Comment
     /// </para>
     /// </remarks>
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)] // Info on this package for Help/About
+    [InstalledProductRegistration("#110", "#112", "1.3.1", IconResourceID = 400)] // Info on this package for Help/About
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(Insert_CommentPackage.PackageGuidString)]
     [ProvideOptionPage(typeof(OptionPageGrid), "Insert PVS-Studio Comment", "General", 0, 0, true)]
